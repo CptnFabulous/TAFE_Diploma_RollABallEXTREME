@@ -35,7 +35,7 @@ public class Bomb : MonoBehaviour
     [Command]
     void CmdExplode(Vector3 position, float radius)
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, explosionRadius);
+        Collider[] hits = Physics.OverlapSphere(position, radius);
         foreach(var hit in hits)
         {
             NetworkServer.Destroy(hit.gameObject);
