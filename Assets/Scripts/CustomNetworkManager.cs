@@ -23,9 +23,10 @@ public class CustomNetworkManager : NetworkManager
     {
         base.OnServerConnect(conn);
 
+        // Spawns appropriate enemy at desired location
         GameObject enemyPrefab = spawnPrefabs[0];
         GameObject enemy = Instantiate(enemyPrefab, new Vector3(0, 2, 0), Quaternion.identity);
-        NetworkServer.Spawn(enemy);
-        Destroy(enemy, 10);
+        NetworkServer.Spawn(enemy); // 
+        Destroy(enemy, 10); // Destroys enemy after a delay of ten seconds
     }
 }

@@ -28,14 +28,15 @@ public class Bomb : MonoBehaviour
 
     public IEnumerator Explode()
     {
-        yield return new WaitForSeconds(explosionDelay);
+        yield return new WaitForSeconds(explosionDelay); // Short delay before exploding
+        //CmdExplode(transform.position, explosionRadius); // Explodes
         
     }
 
     [Command]
     void CmdExplode(Vector3 position, float radius)
     {
-        Collider[] hits = Physics.OverlapSphere(position, radius);
+        Collider[] hits = Physics.OverlapSphere(position, radius); // Checks for objects in blast radius and destroys them
         foreach(var hit in hits)
         {
             NetworkServer.Destroy(hit.gameObject);

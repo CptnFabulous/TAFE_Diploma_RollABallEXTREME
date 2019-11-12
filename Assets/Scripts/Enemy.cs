@@ -17,12 +17,12 @@ public class Enemy : NetworkBehaviour
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
-        target = GameObject.FindGameObjectWithTag(targetTag).transform;
+        target = GameObject.FindGameObjectWithTag(targetTag).transform; // Finds target automatically
     }
 
     // Update is called once per frame
     void Update()
     {
-        agent.SetDestination(target.transform.position);
+        agent.SetDestination(target.transform.position); // Enemy simply moves directly towards set position
     }
 }
