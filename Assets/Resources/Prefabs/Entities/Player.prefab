@@ -124,6 +124,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   syncInterval: 0.1
+  bombPrefab: {fileID: 7839252228367055874, guid: f1c4f2c372b3c924e9c8f5e4d1aa5e2a,
+    type: 3}
+  attachedCamera: {fileID: 0}
+  attachedVirtualCamera: {fileID: 0}
   speed: 10
   jump: 10
   ignoreLayers:

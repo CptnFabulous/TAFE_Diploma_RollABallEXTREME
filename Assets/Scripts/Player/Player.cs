@@ -28,10 +28,11 @@ public class Player : NetworkBehaviour
     {
         rigid = GetComponent<Rigidbody>();
 
+        // Detaches cameras from objects
         attachedCamera.transform.SetParent(null);
         attachedVirtualCamera.SetParent(null);
 
-        if (isLocalPlayer)
+        if (isLocalPlayer) // Detects if the player object is the one being controlled by the client, and enables camera if true
         {
             attachedCamera.enabled = true;
             attachedCamera.rect = new Rect(0f, 0f, 0.5f, 1.0f);
@@ -77,7 +78,7 @@ public class Player : NetworkBehaviour
     #region Commands
     [Command]
 
-    public void CmdSpawnBomb(Vector3 position)
+    public void Cmd_SpawnBomb(Vector3 position)
     {
         GameObject bomb = Instantiate(bombPrefab, position, Quaternion.identity);
         NetworkServer.Spawn(bomb);
