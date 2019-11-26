@@ -58,7 +58,7 @@ public class Player : NetworkBehaviour
     }
     private void Update()
     {
-        if(isLocalPlayer)
+        if(isLocalPlayer) // 
         {
             float inputH = Input.GetAxis("Horizontal");
             float inputV = Input.GetAxis("Vertical");
