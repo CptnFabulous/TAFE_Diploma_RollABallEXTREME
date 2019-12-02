@@ -48,7 +48,7 @@ public class Player : NetworkBehaviour
         Ray groundRay = new Ray(transform.position, Vector3.down);
         isGrounded = Physics.Raycast(groundRay, rayDistance, ~ignoreLayers);
     }
-    private void OnTriggerEnter(Collider col)
+    private void OnTriggerEnter(Collider col) // When entering a trigger, check if trigger is an item, if so collect the item
     {
         Item item = col.GetComponent<Item>();
         if (item)
@@ -58,27 +58,31 @@ public class Player : NetworkBehaviour
     }
     private void Update()
     {
-        if(isLocalPlayer) // 
+        if(isLocalPlayer) // Checks if this player belongs to the client, if so, allow input
         {
+            // Obtains movement inputs and moves player accordingly
             float inputH = Input.GetAxis("Horizontal");
             float inputV = Input.GetAxis("Vertical");
             Move(inputH, inputV);
+
+            // Runs jump function if jump button is pressed
             if (Input.GetButtonDown("Jump"))
             {
                 Jump();
             }
+
+            // Runs bomb spawning function if button is pressed
+            if (Input.GetButtonDown("Fire3"))
+            {
+                Cmd_SpawnBomb(transform.position);
+            }
         }
-
-
-        
-
     }
     #endregion
 
     #region Commands
     [Command]
-
-    public void Cmd_SpawnBomb(Vector3 position)
+    public void Cmd_SpawnBomb(Vector3 position) // Instantiates a bomb in both the client and server
     {
         GameObject bomb = Instantiate(bombPrefab, position, Quaternion.identity);
         NetworkServer.Spawn(bomb);
@@ -88,7 +92,7 @@ public class Player : NetworkBehaviour
     #region Custom
     private void Jump()
     {
-        if (isGrounded)
+        if (isGrounded) // Checks if player is grounded, if so moves player upwards
         {
             rigid.AddForce(Vector3.up * jump, ForceMode.Impulse);
         }
@@ -101,7 +105,7 @@ public class Player : NetworkBehaviour
         Vector3 euler = Camera.main.transform.eulerAngles;
         direction = Quaternion.Euler(0, euler.y, 0) * direction; // Convert direction to relative direction to camera only on Y
 
-        rigid.AddForce(direction * speed);
+        rigid.MovePosition(transform.position + (direction * speed * Time.fixedDeltaTime)); // Updates player's position with direction values, multiplied by the player's speed, multiplied by Time.fixedDeltaTime so the movement is consistent.
     }
     #endregion
 }
