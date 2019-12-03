@@ -74,6 +74,7 @@ public class Player : NetworkBehaviour
             // Runs bomb spawning function if button is pressed
             if (Input.GetButtonDown("Fire3"))
             {
+                print("Bomb spawned");
                 Cmd_SpawnBomb(transform.position);
             }
         }
