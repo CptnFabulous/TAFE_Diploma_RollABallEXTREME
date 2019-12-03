@@ -17,7 +17,7 @@ public class Item : MonoBehaviour
         GameManager.Instance.AddScore(score);
     }
 
-    public void Collect()
+    public virtual void Collect()
     {
         // Run collect event
         onCollect.Invoke(this);
